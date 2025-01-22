@@ -19,23 +19,30 @@ return new class extends Migration
             $table->integer('max_grade');
             $table->integer('max_score');
             $table->string('link')->nullable();
+            $table->foreignId('discipline_id')->constrained();
+            $table->foreignId('teacher_id')->constrained('users','id');
             $table->timestamps();
         });
 
-        Schema::create('student_activity', function (Blueprint $table){
+        Schema::create('student_activities', function (Blueprint $table){
             $table->id();
             $table->float('grade');
             $table->integer('score');
             $table->string('attachment')->nullable();
             $table->foreignId('activity_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('student_id')->constrained('users','id');
+            $table->timestamps();
+
         });
         
-        Schema::create('images_activities', function (Blueprint $table){
+        Schema::create('image_activities', function (Blueprint $table){
 
             $table->id();
             $table->foreignId('activity_id')->constrained('activities','id');
+            $table->string('title')->nullable();
             $table->string('url');
+            $table->timestamps();
+
         });
         /*
         Schema::create('essay_answers', function (Blueprint $table){

@@ -4,30 +4,28 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import InputWithPreview from '@/Components/InputWithPreview';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
-        phoneNumber: '',
         password: '',
+    
         password_confirmation: '',
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register.student'), {
+        post(route('register.teacher'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
 
     return (
         <GuestLayout>
-            <Head title="Registra-se" />
+            <Head title="Registrar - Responsavel" />
 
-    <h1>ALUNO</h1>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Nome" />
@@ -48,20 +46,19 @@ export default function Register() {
                 
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="nickname" value="Usuário" />
 
                     <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
+                        id="nickname"
+                        name="nickname"
+                        value={data.nickname}
                         className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
+                        autoComplete="nickname"
+                        onChange={(e) => setData('nickname', e.target.value)}
                         required
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.nickname} className="mt-2" />
                 </div>
                 <div className="mt-4">
                     <InputLabel htmlFor="phone" value="Celular" />
@@ -76,9 +73,25 @@ export default function Register() {
                         onChange={(e) => setData('phoneNumber', e.target.value)}
                         required
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+             
+                    <InputError message={errors.phoneNumber} className="mt-2" />
                 </div>
+                <div className="mt-4">
+                    <InputLabel  value="Responsavel por" />
+
+                    <TextInput
+                        id="guardian"
+                        name="responsibleFor"
+                        value={data.responsibleFor}
+                        className="mt-1 block w-full"
+                        autoComplete="responsible_for"
+                        onChange={(e) => setData('responsibleFor', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.responsibleFor} className="mt-2" />
+                </div>
+
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Senha" />
 

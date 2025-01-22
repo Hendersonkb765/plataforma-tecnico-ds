@@ -4,9 +4,9 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import InputWithPreview from '@/Components/InputWithPreview';
 
 export default function Register() {
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -18,16 +18,17 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register.student'), {
+        post(route('register.teacher'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
 
+    
+
     return (
         <GuestLayout>
-            <Head title="Registra-se" />
+            <Head title="Registrar - Professor" />
 
-    <h1>ALUNO</h1>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Nome" />
@@ -63,6 +64,7 @@ export default function Register() {
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
+
                 <div className="mt-4">
                     <InputLabel htmlFor="phone" value="Celular" />
 
@@ -79,6 +81,10 @@ export default function Register() {
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
+                <div>
+         
+                </div>
+
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Senha" />
 

@@ -11,30 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('multidisciplinary_activity', function (Blueprint $table) {
+        Schema::create('multidisciplinary_activities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description');
             $table->integer('max_grade');
             $table->integer('max_score');
-            $table->string('link');
-
+            $table->date('delivery_date');
             $table->timestamps();
         });
-        Schema::create('class_multidisciplinary_activity', function(Blueprint $table){
-            $table->foreignId('class_id');
-            $table->foreignId('discipline_id');
+        Schema::create('cohort_multidisciplinary_activity', function(Blueprint $table){
+            $table->foreignId('cohort_id')->constrained();
+            $table->foreignId('multidisciplinary_activity_id');
         });
         
-        Schema::create('student_multidisciplinary_activity', function (Blueprint $table){
+        Schema::create('student_multidisciplinary_activities', function (Blueprint $table){
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('multidisciplinary_id')->constrained('multidisciplinary_activity','id');
+            $table->foreignId('student_id')->constrained('users','id');
+            $table->foreignId('multidisciplinary_activity_id');
             $table->integer('grade');
             $table->integer('score');
             $table->string('attachment')->nullable();
-            $table->date('delivery_date');
+            $table->timestamps();
         });
+        
     }
 
     /**
@@ -42,6 +42,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('multidisciplinary_activity');
+        Schema::dropIfExists('student_multidisciplinary_activities');
+        Schema::dropIfExists('cohort_multidisciplinary_activity');
+        Schema::dropIfExists('multidisciplinary_activities');
     }
 };

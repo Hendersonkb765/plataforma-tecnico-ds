@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->enum('bimonthly',[1,2,3,4]);
-            $table->foreignId('teacher_id')->constrained('teachers','id');
+            $table->foreignId('teacher_id')->constrained('users','id');
             $table->timestamps();
         });
 

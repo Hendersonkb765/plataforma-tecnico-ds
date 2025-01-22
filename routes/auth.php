@@ -7,15 +7,26 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredTeacherController;
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
+Route::middleware(['guest'])->group(function () {
+    Route::get('registrar-se', [RegisteredStudentController::class, 'create'])
+        ->name('register.student');
+    Route::post('registrar-se', [RegisteredStudentController::class, 'store'])
+        ->name('register.student');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('registrar-se/professor', [RegisteredTeacherController::class, 'create'])
+        ->name('register.teacher');
+    Route::post('registrar-se/professor', [RegisteredTeacherController::class, 'store'])
+        ->name('register.teacher');
+
+    
+
+
+    Route::post('register', [RegisteredStudentController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
